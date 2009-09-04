@@ -1,0 +1,33 @@
+SECTIONS
+{
+	. = 0x82000000;
+	.text : 
+	{
+	 *(.text) 
+	 *(.glue_7) 
+	 *(.glue_7t)
+	 *(.vfp11_veneer)
+	 }
+	.data : { *(.data) }
+	 
+	.bss : 
+	{ 
+		*(.bss) 
+		__bss_start__ = .;
+		__bss_end__ = .;
+		_end = .;
+		/* setup a 4k stack */
+		. += 0x1000;
+		PROVIDE (__stack = .);
+	}
+	
+/*
+	.debug_info     0 : { *(.debug_info) }
+	.debug_abbrev   0 : { *(.debug_abbrev) }
+	.debug_line     0 : { *(.debug_line) }
+	.debug_frame    0 : { *(.debug_frame) }
+*/
+}
+
+	
+

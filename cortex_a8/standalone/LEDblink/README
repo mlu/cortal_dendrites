@@ -1,0 +1,30 @@
+LEDblink.
+===========================================================================
+This is a minimal standalone program to blink the LED's on the BeagleBoard.
+
+This program is loaded above UBoot in RAM at address 0x82000000.
+
+Linker script and startup code are absolutly minimal, only SVC stack is setup.
+
+===========================================================================
+Telnet OpenOCD session
+
+load_image LEDblink
+resume 0x8200000
+
+============================================================================
+GDB
+
+From a cold start:
+
+Run openocd in one terminal window.
+
+Run arm-nene-eabi-gdb i another terminal window
+
+The supplied .gdbinit initializes opmap3 debugging, loads the program into RAM
+and starts it.
+
+Use gdb commands as usual. There are problems with single line step into functions,
+execution is not halted at next line and must be interrupted with ^C. Single instruction
+stepping stepi seems to work.
+
