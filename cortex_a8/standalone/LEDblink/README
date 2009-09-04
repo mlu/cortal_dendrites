@@ -24,7 +24,14 @@ Run arm-nene-eabi-gdb i another terminal window
 The supplied .gdbinit initializes opmap3 debugging, loads the program into RAM
 and starts it.
 
-Use gdb commands as usual. There are problems with single line step into functions,
-execution is not halted at next line and must be interrupted with ^C. Single instruction
-stepping stepi seems to work.
+Use gdb commands as usual.
+
+==============================================================================
+
+Things to fix:
+
+One major problem (090904) is that OpenOCD does not control invalidation 
+of the I-cache when uploading updated program code to RAM. So the processor does not
+execute the same code fron I-Cache as the debugger can read from memory thrugh the ADPMEMAP.
+
 
