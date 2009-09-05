@@ -32,6 +32,18 @@ Things to fix:
 
 One major problem (090904) is that OpenOCD does not control invalidation 
 of the I-cache when uploading updated program code to RAM. So the processor does not
-execute the same code fron I-Cache as the debugger can read from memory thrugh the ADPMEMAP.
+execute the same code fron I-Cache as the debugger can read from memory thrugh the AHB-MEMAP.
+
+If we are executing in UBoot, halt the processor, upload and runs a program then 
+everything works because ththe code region is not cached. If we change our code, rebuilds
+and uploads without somehow clearing the caches, the the MPU will run the old code but gdb will 
+see the new code. And confusion starts.
+
+When something goes wring, we and up in Abort Mode, pushing reset button disables JTAG and we 
+must call omap3_dbginit throug the telnet interface or from gdb with monitor omap3_dbginit.
+Not userfriendly at the moment.
+
+Change this project to compile inte Thumb code, and see what happens then.
+
 
 
