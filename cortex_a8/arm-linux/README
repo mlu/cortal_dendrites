@@ -1,0 +1,8 @@
+This directory contains small code snippets to run under Linux on the Cortex-A8
+===============================================================================
+neontest.c
+neontest2.c
+neontest3.c
+
+Get started with NEON code. The FFT and some othe DSP stuff should be next.
+
