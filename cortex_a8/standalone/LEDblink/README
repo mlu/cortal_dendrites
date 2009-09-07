@@ -6,6 +6,9 @@ This program is loaded above UBoot in RAM at address 0x82000000.
 
 Linker script and startup code are absolutly minimal, only SVC stack is setup.
 
+make LEDblink for ARM version
+make LEDblinkT for Thumb version
+
 ===========================================================================
 Telnet OpenOCD session
 
@@ -42,8 +45,4 @@ see the new code. And confusion starts.
 When something goes wring, we and up in Abort Mode, pushing reset button disables JTAG and we 
 must call omap3_dbginit throug the telnet interface or from gdb with monitor omap3_dbginit.
 Not userfriendly at the moment.
-
-Change this project to compile inte Thumb code, and see what happens then.
-
-
 

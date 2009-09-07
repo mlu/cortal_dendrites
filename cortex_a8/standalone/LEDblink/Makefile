@@ -20,6 +20,15 @@ LEDblink: LEDblink.o Makefile $(LDSCRIPT) crt0.o
 	$(OBJCOPY) -O binary $@ $@.bin 
 	$(OBJDUMP) -S -l $@ >$@.src
 
+LEDblinkT: LEDblinkT.o Makefile $(LDSCRIPT) crt0.o
+	$(LD) -g -v -T $(LDSCRIPT)  -Map $@.map -o $@ crt0.o $@.o
+	$(NM) $@
+	$(OBJCOPY) -O binary $@ $@.bin 
+	$(OBJDUMP) -S -l $@ >$@.src
+
+LEDblinkT.o:  LEDblink.c
+	$(CC) $(CFLAGS) -mthumb -g -c -o LEDblinkT.o LEDblink.c
+
 crt0.o:  Makefile $(LDSCRIPT) crt0.S
 	$(CC) -g -c -o crt0.o crt0.S
 

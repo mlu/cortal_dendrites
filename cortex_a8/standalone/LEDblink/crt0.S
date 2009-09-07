@@ -21,7 +21,7 @@ _mainCRTStartup:
 	ldr	r3, .LC2
 	mov 	sp, r3
 
-	bl	main
+	blx	main
 
 	/* For Thumb, constants must be after the code since only 
 	positive offsets are supported for PC relative addresses. */
