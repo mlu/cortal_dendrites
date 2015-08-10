@@ -1,0 +1,13 @@
+# .gitignore
+
+# Ignore MacOS stuff
+.DS_Store
+.afpdeleted*
+
+# Compiler generated files
+*.bin
+*.map
+*.hex
+*.elf
+*.o
+*.lst
