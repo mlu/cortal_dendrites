@@ -6,7 +6,7 @@
 #define USB_CDC_RX_BUFFERSIZE	256
 #define USB_CDC_RX_BUFFERMASK	0xFF
 
-/* Received data is saven in ring buffer */
+/* Received data is saved in ring buffer */
 uint8_t vcomBufferRx[USB_CDC_RX_BUFFERSIZE];
 /* Read index into vcomBufferRx */
 uint32_t rx_head = 0;
@@ -90,7 +90,7 @@ uint8_t rts(void) { return (usb_cdc_line_rtsdtr & USB_CDC_CONTROL_LINE_RTS) ? 1 
  * 
  * **********************************************************/
 
-int usb_serial_available(void) {
+size_t usb_serial_available(void) {
 	return (rx_tail-rx_head)&USB_CDC_RX_BUFFERMASK;
 };
 
@@ -102,7 +102,8 @@ int usb_serial_getchar(void) {
 		rx_head = (rx_head+1)&USB_CDC_RX_BUFFERMASK;
 	}
 	if (avail<64) 
-		if (config_ep_out[USB_CDC_RX_ENDP].buffer->count != config_ep_out[USB_CDC_RX_ENDP].buffer->index)  /* More data to read in the buffer */
+		/* More data to read in the buffer */
+		if (config_ep_out[USB_CDC_RX_ENDP].buffer->count != config_ep_out[USB_CDC_RX_ENDP].buffer->index) 
 			vcomDataRxCb();
 	return c;
 };
@@ -112,14 +113,13 @@ int usb_serial_peekchar(void) {
 	else return -1;
 };
 
-int usb_serial_read(void *buffer, uint32_t size)
+size_t usb_serial_read(void *buffer, uint32_t size)
 {
-	uint32_t count = size;
+	uint32_t count = 0;
 	uint32_t avail = usb_serial_available();
-	int c = -1;
 	if (avail) {
 		uint8_t * buf8 = buffer; 
-		int i;
+		count = size;
 		if (avail < count) count = avail;
 		while (buf8<(uint8_t *)buffer+count) {
 			*buf8++ = vcomBufferRx[rx_head];
@@ -129,12 +129,12 @@ int usb_serial_read(void *buffer, uint32_t size)
 	return count;
 }
 
-int usb_serial_putchar(uint8_t c)
+size_t usb_serial_putchar(uint8_t c)
 {
 	return usb_serial_write(&c, 1);
 }
 
-int usb_serial_write(const uint8_t *buffer, uint32_t size)
+size_t usb_serial_write(const uint8_t *buffer, uint32_t size)
 {
 	uint32_t i, count;
 	usb_ep_buffer_t * epb = config_ep_in[USB_CDC_TX_ENDP].buffer;
@@ -159,7 +159,7 @@ int usb_serial_write(const uint8_t *buffer, uint32_t size)
 static void vcomDataTxCb(void) {
 }
 
-/* CDC Receive callback, only called from IRQ */
+/* CDC Receive callback, only called from IRQ ???? */
 static void vcomDataRxCb(void) {
 	uint32_t available = (rx_head-rx_tail-1)&USB_CDC_RX_BUFFERMASK;
 	usb_ep_buffer_t * epb = config_ep_out[USB_CDC_RX_ENDP].buffer;

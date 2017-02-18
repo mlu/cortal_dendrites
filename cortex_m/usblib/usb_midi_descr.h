@@ -39,7 +39,7 @@ extern "C" {
 
 #define USB_MIDI_DECLARE_DEV_DESC(vid, pid)         \
 {                                                   \
-.bLength = sizeof(usb_descriptor_device),           \
+.bLength = 18,           \
 .bDescriptorType = USB_DESCRIPTOR_TYPE_DEVICE,      \
 .bcdUSB = 0x0110,                                   \
 .bDeviceClass = USB_DEVICE_CLASS_UNDEFINED,         \
@@ -51,7 +51,7 @@ extern "C" {
 .bcdDevice = 0x0200,                                \
 .iManufacturer = 0x01,                              \
 .iProduct = 0x02,                                   \
-.iSerialNumber = 0x00,                              \
+.iSerialNumber = 0x03,                              \
 .bNumConfigurations = 0x01,                         \
 }
 
@@ -67,47 +67,53 @@ extern "C" {
       uint8_t  baInterfaceNr[DataSize];               \
   } __attribute__((packed))
 
-typedef struct {
+typedef struct __attribute__((packed)) {
       uint8_t  bLength;
       uint8_t  bDescriptorType;
       uint8_t  SubType;
       uint16_t bcdADC;
       uint16_t wTotalLength;
-  } __attribute__((packed)) MS_CS_INTERFACE_DESCRIPTOR;
+  } MS_CS_INTERFACE_DESCRIPTOR;
 
-typedef struct {
+typedef struct __attribute__((packed)) {
       uint8_t  bLength;
       uint8_t  bDescriptorType;
       uint8_t  SubType;
       uint8_t  bJackType;
       uint8_t  bJackId;
       uint8_t  iJack;
-  } __attribute__((packed)) MIDI_IN_JACK_DESCRIPTOR;
+  } MIDI_IN_JACK_DESCRIPTOR;
+
+typedef struct __attribute__((packed)) {
+      uint8_t  baSourceId;
+      uint8_t  baSourcePin;
+  } MIDI_OUT_JACK_SOURCE;
 
 #define MIDI_OUT_JACK_DESCRIPTOR_SIZE(DataSize) (7 + 2*DataSize)
 #define MIDI_OUT_JACK_DESCRIPTOR(DataSize)        \
- struct {                                           \
+struct __attribute__((packed)) {                  \
       uint8_t  bLength;                               \
       uint8_t  bDescriptorType;                       \
       uint8_t  SubType;                               \
       uint8_t  bJackType;                             \
       uint8_t  bJackId;                               \
       uint8_t  bNrInputPins;                          \
-      uint8_t  baSourceId[DataSize];                  \
-      uint8_t  baSourcePin[DataSize];                 \
+      MIDI_OUT_JACK_SOURCE baSource[DataSize];        \
+/*      uint8_t  baSourceId[DataSize]; */             \
+/*      uint8_t  baSourcePin[DataSize];  */             \
       uint8_t  iJack;                                 \
-  } __attribute__((packed))
+  } 
 
 
 #define MS_CS_BULK_ENDPOINT_DESCRIPTOR_SIZE(DataSize) (4 + DataSize)
 #define MS_CS_BULK_ENDPOINT_DESCRIPTOR(DataSize)    \
- struct {                                           \
+struct __attribute__((packed)) {                    \
       uint8_t  bLength;                               \
       uint8_t  bDescriptorType;                       \
       uint8_t  SubType;                               \
       uint8_t  bNumEmbMIDIJack;                       \
       uint8_t  baAssocJackID[DataSize];               \
-  } __attribute__((packed))
+  } 
 
 #ifdef __cplusplus
 }

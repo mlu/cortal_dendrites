@@ -27,7 +27,7 @@ void usb_midi_send_noteon(uint32_t note, uint32_t velocity, uint32_t channel) {
 	mp.packet.MIDI_0 = MIDI_NOTEON | (0xF&(channel-1));
 	mp.packet.MIDI_1 = 0x7F & note;
 	mp.packet.MIDI_2 = 0x7F & velocity;
-	usb_midi_putpacket(mp.data);
+	usb_midi_putpacket(mp.data32);
 };
 
 void usb_midi_send_noteoff(uint32_t note, uint32_t velocity, uint32_t channel) {
@@ -36,7 +36,7 @@ void usb_midi_send_noteoff(uint32_t note, uint32_t velocity, uint32_t channel) {
 	mp.packet.MIDI_0 = MIDI_NOTEOFF | (0xF&(channel-1));
 	mp.packet.MIDI_1 = 0x7F & note;
 	mp.packet.MIDI_2 = 0x7F & velocity;
-	usb_midi_putpacket(mp.data);
+	usb_midi_putpacket(mp.data32);
 };
 
 void usb_midi_sendPolyPressure(uint32_t note, uint32_t pressure, uint32_t channel);

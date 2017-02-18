@@ -8,7 +8,7 @@
 #define LUFA_ID_VENDOR                0x03EB
 #define LUFA_CDC_PRODUCT              0x2044
 
-static const usb_descriptor_device usbVcomDescriptor_Device =
+static const  __attribute__((packed)) usb_descriptor_device usbVcomDescriptor_Device =
     USB_CDC_DECLARE_DEV_DESC(LUFA_ID_VENDOR, LUFA_CDC_PRODUCT);
 
 typedef struct {
@@ -130,26 +130,25 @@ static const usb_descriptor_config usbVcomDescriptor_Config = {
 static const usb_descriptor_string usbVcomDescriptor_LangID = {
     .bLength         = USB_DESCRIPTOR_STRING_LEN(1),
     .bDescriptorType = USB_DESCRIPTOR_TYPE_STRING,
-    .bString         = {0x09, 0x04},
+    .wString         = {0x0409},
 };
 
 static const usb_descriptor_string usbVcomDescriptor_iManufacturer = {
     .bLength = USB_DESCRIPTOR_STRING_LEN(8),
     .bDescriptorType = USB_DESCRIPTOR_TYPE_STRING,
-    .bString = {'L', 0, 'U', 0, 'F', 0, 'A', 0,
-                ' ', 0, 'M', 0, 'L', 0, 'U', 0},
+    .wString = {'L', 'U', 'F', 'A', ' ', 'M', 'L', 'U'},
 };
 
 static const usb_descriptor_string usbVcomDescriptor_iProduct = {
-    .bLength = USB_DESCRIPTOR_STRING_LEN(5),
+    .bLength = USB_DESCRIPTOR_STRING_LEN(11),
     .bDescriptorType = USB_DESCRIPTOR_TYPE_STRING,
-    .bString = {'C', 0, 'D', 0, 'C', 0, ' ', 0, 'x', 0, 'm', 0, 'c', 0, '4', 0, '5',  0, '0', 0, '0', 0},
+    .wString = {'C', 'D', 'C', ' ', 's', 't', 'm', 'f', '7',  '4', '6'},
 };
 
 static const usb_descriptor_string usbVcomDescriptor_iSN = {
-    .bLength = USB_DESCRIPTOR_STRING_LEN(5),
+    .bLength = USB_DESCRIPTOR_STRING_LEN(6),
     .bDescriptorType = USB_DESCRIPTOR_TYPE_STRING,
-    .bString = {'0', 0, '0', 0, '1', 0, '.', 0, '0', 0, '1', 0},
+    .wString = {'7', '4', '6', '.', '1', '1'},
 };
 
 int descriptor_table_length = 6;

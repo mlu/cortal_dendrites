@@ -13,10 +13,10 @@ extern "C" {
 #define MIDI_SYSTEM_COMMON3		0x3
 #define MIDI_NOTEOFF  			0x80
 #define MIDI_NOTEON  			0x90
-#define MIDI_POLY_KEYPRESS		0xA
-#define MIDI_CONTROL_CHANGE  	0xB
-#define MIDI_PROGRAM_CHANGE  	0xC
-#define MIDI_CHANNEL_PRESSURE	0xD
+#define MIDI_POLY_KEYPRESS		0xA0
+#define MIDI_CONTROL_CHANGE  		0xB0
+#define MIDI_PROGRAM_CHANGE  		0xC0
+#define MIDI_CHANNEL_PRESSURE		0xD0
 
 
 typedef struct {
@@ -28,7 +28,7 @@ typedef struct {
 
 typedef union {
     uint8_t  bytes[4];
-    uint32_t data;
+    uint32_t data32;
     MIDI_EVENT_PACKET_t packet;
 } USB_MIDI_Event_Packet;
 
@@ -38,9 +38,9 @@ typedef union {
 #define USBMIDI_CIN_NOTEOFF  			0x8
 #define USBMIDI_CIN_NOTEON  			0x9
 #define USBMIDI_CIN_POLY_KEYPRESS		0xA
-#define USBMIDI_CIN_CONTROL_CHANGE  	0xB
-#define USBMIDI_CIN_PROGRAM_CHANGE  	0xC
-#define USBMIDI_CIN_CHANNEL_PRESSURE	0xD
+#define USBMIDI_CIN_CONTROL_CHANGE  		0xB
+#define USBMIDI_CIN_PROGRAM_CHANGE  		0xC
+#define USBMIDI_CIN_CHANNEL_PRESSURE		0xD
 
 /*
  * USB MIDI Requests

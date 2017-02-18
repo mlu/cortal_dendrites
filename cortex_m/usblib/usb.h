@@ -97,13 +97,13 @@ typedef enum _DESCRIPTOR_TYPE
 #define USB_DESCRIPTOR_STRING_LEN(x) (2 + (x << 1))
 
 #define USB_DESCRIPTOR_STRING(len)              \
-  struct __attribute__((packed, aligned(4))) {    \
+  struct __attribute__((packed)) {    \
       uint8_t bLength;                            \
       uint8_t bDescriptorType;                    \
       uint16_t bString[len];                      \
   } 
 
-typedef struct __attribute__((packed, aligned(4))) usb_descriptor_device {
+typedef struct __attribute__((packed)) usb_descriptor_device {
     uint8_t  bLength;
     uint8_t  bDescriptorType;
     uint16_t bcdUSB;
@@ -120,7 +120,7 @@ typedef struct __attribute__((packed, aligned(4))) usb_descriptor_device {
     uint8_t  bNumConfigurations;
 } usb_descriptor_device;
 
-typedef struct __attribute__((packed, aligned(4))) usb_descriptor_config_header {
+typedef struct __attribute__((packed)) usb_descriptor_config_header {
     uint8_t  bLength;
     uint8_t  bDescriptorType;
     uint16_t wTotalLength;
@@ -131,7 +131,7 @@ typedef struct __attribute__((packed, aligned(4))) usb_descriptor_config_header 
     uint8_t  bMaxPower;
 } usb_descriptor_config_header;
 
-typedef struct __attribute__((packed, aligned(4))) usb_descriptor_interface {
+typedef struct __attribute__((packed)) usb_descriptor_interface {
     uint8_t bLength;
     uint8_t bDescriptorType;
     uint8_t bInterfaceNumber;
@@ -143,7 +143,7 @@ typedef struct __attribute__((packed, aligned(4))) usb_descriptor_interface {
     uint8_t iInterface;
 } usb_descriptor_interface;
 
-typedef struct __attribute__((packed, aligned(4))) usb_descriptor_endpoint {
+typedef struct __attribute__((packed)) usb_descriptor_endpoint {
     uint8_t  bLength;
     uint8_t  bDescriptorType;
     uint8_t  bEndpointAddress;
@@ -152,10 +152,10 @@ typedef struct __attribute__((packed, aligned(4))) usb_descriptor_endpoint {
     uint8_t  bInterval;
 }usb_descriptor_endpoint;
 
-typedef struct __attribute__((packed, aligned(4))) usb_descriptor_string {
+typedef struct __attribute__((packed)) usb_descriptor_string {
     uint8_t bLength;
     uint8_t bDescriptorType;
-    uint8_t bString[];
+    uint16_t wString[];
 } usb_descriptor_string;
 
 /* Common values that go inside descriptors */
