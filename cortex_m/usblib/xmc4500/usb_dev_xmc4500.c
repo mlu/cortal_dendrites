@@ -338,7 +338,6 @@ void usb_init(void)
  * *********************************************************************/
 
 void USB0_0_IRQ() {
-	PORT1->OMR = 0x30000 | 0x03;
 	uint32_t gintsts = USB0->GINTSTS_DEVICEMODE;
 	if (gintsts&0xF0000000) {DEBUGLOG(1,gintsts);}
 	USB0->GINTSTS_DEVICEMODE = gintsts;
@@ -453,5 +452,4 @@ void USB0_0_IRQ() {
 			USB0_EP2->DIEPINT = diepint;
 		}		
 	}
-	PORT1->OMR = 0x30000 | 0x03;
 }
