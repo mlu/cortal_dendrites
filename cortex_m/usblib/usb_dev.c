@@ -30,8 +30,8 @@ uint32_t  usb_interface_number = 0;
 
 //__attribute__ ((section(".commsram"))) usb_ep_buffer_t ep_buffers[16];
 __attribute__ ((section(".commbuffer"))) usb_ep_buffer_t ep_buffers[USB_EPBUF_NUM];
-usb_ep_config_t config_ep_in[3] = { {ep_buffers, NULL}, {ep_buffers+1, NULL}, {ep_buffers+2, NULL} };
-usb_ep_config_t config_ep_out[3] = { {ep_buffers+3, NULL}, {ep_buffers+4, NULL}, {ep_buffers+5, NULL} };
+usb_ep_config_t config_ep_in[3] = { {0, ep_buffers, NULL}, {0, ep_buffers+1, NULL}, {0, ep_buffers+2, NULL} };
+usb_ep_config_t config_ep_out[3] = { {0, ep_buffers+3, NULL}, {0, ep_buffers+4, NULL}, {0, ep_buffers+5, NULL} };
 
 
 /* Hardware independent routines */

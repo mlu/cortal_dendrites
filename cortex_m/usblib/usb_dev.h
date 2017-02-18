@@ -17,6 +17,9 @@ extern "C" {
 
 #define USB_EPBUF_NUM         16
 
+#define USB_EP_STATUS_UNUSED          0
+#define USB_EP_STATUS_CONFIGURED      1
+#define USB_EP_STATUS_BULK            2
 
 typedef struct {
 	uint16_t wValue; 
@@ -39,8 +42,9 @@ typedef struct usb_ep_buffer_t{
 } usb_ep_buffer_t;
 
 typedef struct usb_ep_config_t{
-	struct usb_ep_buffer_t * buffer;
-	void (* callback)(void);
+	uint32_t  status;
+	struct    usb_ep_buffer_t * buffer;
+	void      (* callback)(void);
 } usb_ep_config_t;
 
 extern usb_dev_state_type usb_device_state;
