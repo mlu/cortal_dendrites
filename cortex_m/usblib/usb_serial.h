@@ -18,11 +18,11 @@ uint8_t rts(void);
 
 int usb_serial_getchar(void);
 int usb_serial_peekchar(void);
-int usb_serial_available(void);
-int usb_serial_read(void *buffer, uint32_t size);
+size_t usb_serial_available(void);
+size_t usb_serial_read(void *buffer, uint32_t size);
 
-int usb_serial_putchar(uint8_t c);
-int usb_serial_write(const uint8_t *buffer, uint32_t size);
+size_t usb_serial_putchar(uint8_t c);
+size_t usb_serial_write(const uint8_t *buffer, uint32_t size);
 
 /**********************************/
 
